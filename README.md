@@ -1,8 +1,6 @@
-# Two Circles Data Engineer Assessment
-
 ## Introduction
 
-Welcome to the Two Circles Data Engineer Assessment! Within this repository, everything you'll need has been provided.
+Data Engineer project. Within this repository, everything you'll need has been provided.
 
 ## Requirements
 
@@ -49,8 +47,6 @@ You're a Data Engineer at Two Circles, and have been provided with two datasets,
 10. Net Sales by Season, with percentage comparison to the previous Season
 11. Find the latest event purchased by customer, and depending on what season the event date falls in assign the status of 'Current Ticket Purchaser', 'Previous Ticket Purchaser' or 'Future Ticket Purchaser'.
 
-For each of these insights, they would like a csv file with the results written into an `/output` folder
+For each of these insights, a csv file with the results written into an `/output` folder
 
-Once complete, the project (including code & output data) should be zipped up and returned for evaluation.
 
-Good luck! :-)
