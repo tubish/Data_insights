@@ -38,3 +38,8 @@
 2021-08-15 18:56:45,039:root:Saving the data as parquet format completed
 2021-08-15 18:56:45,039:root:Grouping by customer title and order the data with descending quantity
 2021-08-15 18:56:51,288:root:listing events for each customer
+2021-08-15 19:30:05,556:root:Data ingestion started
+2021-08-15 19:30:20,108:root:Data ingestion complete
+2021-08-15 19:30:20,109:root:Data ingestion started
+2021-08-15 19:30:20,351:root:Data ingestion complete
+2021-08-15 19:30:20,351:root:Enrich tickets with customer details
