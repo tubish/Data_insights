@@ -8,8 +8,7 @@ import logging
 
 
 def ingest_parquet_df(fileName):
-    """
-    Read a parquet data file
+    """Read a parquet data file
     """
     logging.info("Data ingestion started")
     spark = SparkSession.builder.getOrCreate()
@@ -19,8 +18,7 @@ def ingest_parquet_df(fileName):
 
 
 def ingest_csv_df(fileName):
-    """ 
-    Read a csv data file 
+    """ Read a csv data file 
     """
     logging.info("Data ingestion started")
     spark = SparkSession.builder.getOrCreate()
@@ -30,8 +28,7 @@ def ingest_csv_df(fileName):
 
 
 def ingest_json_df(fileName):
-    """ 
-    Read a json data file 
+    """ Read a json data file 
     """
     logging.info("json data ingestion started")
     spark = SparkSession.builder.getOrCreate()
@@ -41,8 +38,7 @@ def ingest_json_df(fileName):
 
 
 def parse_json_df(df):
-    """
-    Explode the 
+    """Explode the 
     """
     logging.info("transform the file")
 
@@ -75,44 +71,45 @@ def persist_parquet_df(df, path):
     logging.info("Saving the data as parquet format completed")
 
 
-def parse_date(df):
-    """
-    Transform the date from string to date format
-    """
+# def parse_date(df):
+#     """
+#     Transform the date from string to date format
+#     """
 
-    logging.info("Date parsing commenced")
+#     logging.info("Date parsing commenced")
 
-    spark = SparkSession.builder.getOrCreate()
-    spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
-    
-    import pyspark.sql.functions as F
+#     spark = SparkSession.builder.getOrCreate()
+#     spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
-    format1 = "dd-MMM-yyyy"
-    format2 = "MMM-dd-yyyy"
-    format3 = "dd-MMM-yyyy"
-    df1 = df.withColumn(
-        "Date",
-        F.when(F.to_date(F.col("event_date"), format1).isNotNull(), F.to_date(F.col("event_date"), format1),
-               ).otherwise(
-            F.when(F.to_date(F.col("event_date"), format2).isNotNull(), F.to_date(F.col("event_date"), format2),
-                   ).otherwise(
-                F.when(F.to_date(F.col("event_date"), format3).isNotNull(), F.to_date(F.col("event_date"), format3),
-                       )
-            ),
-        ),
-    ).withColumn("Net_sales", F.round(F.col("net_sales"), 2))
-    return df1.drop("event_date")
-    logging.info("Date parsing completed")
+#     import pyspark.sql.functions as F
+
+#     format1 = "dd-MMM-yyyy"
+#     format2 = "MMM-dd-yyyy"
+#     format3 = "dd-MMM-yyyy"
+#     df1 = df.withColumn(
+#         "Date",
+#         F.when(F.to_date(F.col("event_date"), format1).isNotNull(), F.to_date(F.col("event_date"), format1),
+#                ).otherwise(
+#             F.when(F.to_date(F.col("event_date"), format2).isNotNull(), F.to_date(F.col("event_date"), format2),
+#                    ).otherwise(
+#                 F.when(F.to_date(F.col("event_date"), format3).isNotNull(), F.to_date(F.col("event_date"), format3),
+#                        )
+#             ),
+#         ),
+#     ).withColumn("Net_sales", F.round(F.col("net_sales"), 2))
+#     return df1.drop("event_date")
+#     logging.info("Date parsing completed")
 
 # A table of Events with formatted dates and count of Orders
 
 
 def Event_table(df):
-    """
-    [summary]
+    """Aggregating orders by date
     """
     logging.info("Aggregating orders by date")
-    return df.groupBy("Date").count().alias("Count of orders")
+    
+    new_df = df.groupBy("Date").count().alias("Count of orders")
+    return new_df
 
 
 def enrich_tickets_with_customer_details(df1, df2):
@@ -121,41 +118,33 @@ def enrich_tickets_with_customer_details(df1, df2):
     logging.info("Enrich tickets with customer details")
 
     joinCondition = (df1.customer_id == df2.CustomerIdentity)
-    return df1.join(F.broadcast(df2), joinCondition,
-                   'inner').drop("CustomerIdentity")
-
+    result = df1.join(F.broadcast(df2), joinCondition, 'inner')\
+                .drop("CustomerIdentity")
+    return result
 
 
 def tickets_by_customer_title_ordered_by_quantity(df):
     """Tickets by Customer Title, ordered by Quantity
     """
-    logging.info("Grouping by customer title and order the data with descending quantity")
-    
-    return df.groupBy("Customer_Title")\
-             .agg(F.sum("quantity")\
-             .alias("Totals"))\
-             .sort("Totals", ascending=False)
+    logging.info(
+        "Grouping by customer title and order the data with descending quantity")
+
+    result = df.groupBy("Customer_Title")\
+               .agg(F.sum("quantity").alias("Totals"))\
+               .sort("Totals", ascending=False)
+    return result
 
 
 # def list_events_for_each_customer(df):
 #     """For each Customer, a list of Events
 #     """
 #     logging.info("listing events for each customer")
-    
+
 #     return df.groupby("customer_id")\
 #              .agg(F.collect_list("event_name")\
 #              .alias("List_of_events"))
-             
-             
-def largest_Order_by_quantity_for_each_customer(df):
-    """Largest Order by Quantity for each Customer
-    """
-    logging.info("Largest Order by Quantity for each Customer")
-    return df.groupBy("customer_id")\
-        .agg()  
-        
-        
-def name(args):
- pass
 
-         
+
+
+
+

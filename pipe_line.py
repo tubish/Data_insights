@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from utils import *
-from insights import list_events_for_each_customer
+from insights import *
+from date_formatting import parse_date
 import logging
 
 
@@ -11,8 +12,8 @@ tickets_path = "./output/tickets.parquet"
 customers_path = "./output/customers.parquet"
 processed_df_path = "./output/processed_df.parquet"
 
-logging.basicConfig(filename="test.log", level="INFO",
-                    format='%(asctime)s:%(name)s:%(message)s')
+FORMAT='%(asctime)s:%(name)s:%(message)s'
+logging.basicConfig(filename="test.log", level="INFO",format=FORMAT)
 
 
 def main():
@@ -49,6 +50,7 @@ def main():
     # 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
     
     # 5. Largest Order by Quantity for each Customer
+    largest_Order_by_quantity_for_each_customer(df).show(5)
     
 
 
