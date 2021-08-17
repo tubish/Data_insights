@@ -1,3 +1,8 @@
+"""Two data sets customers and tickets are joined together with inner join of
+and the date is formatted and the net_sales are rounded off to 2 decimal places.
+customer_id column is dropped
+"""
+
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 import logging
@@ -28,6 +33,19 @@ def parse_date(df):
                        )
             ),
         ),
-    ).withColumn("Net_sales", F.round(F.col("net_sales"), 2))
-    return df1.drop("event_date")
+    ).withColumn("Net_sales", F.round(F.col("net_sales"), 2))\
+     .drop("event_date")
+    return df1
+
     logging.info("Date parsing completed")
+    
+    
+def enrich_tickets_with_customer_details(df1, df2):
+    """Combine the tickets and customers dataframes
+    """
+    logging.info("Enrich tickets with customer details")
+
+    joinCondition = (df1.customer_id == df2.CustomerIdentity)
+    result = df1.join(F.broadcast(df2), joinCondition, 'inner')\
+                .drop("CustomerIdentity")
+    return result

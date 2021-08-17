@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from utils import *
 from insights import *
-from date_formatting import parse_date
+from transform_data import enrich_tickets_with_customer_details, parse_date
 import logging
 
 
@@ -11,6 +11,8 @@ customers_json_path_path = "./data/customers.json"
 tickets_path = "./output/tickets.parquet"
 customers_path = "./output/customers.parquet"
 processed_df_path = "./output/processed_df.parquet"
+
+largest_oder_path = "./output/largest_oder.csv"
 
 FORMAT='%(asctime)s:%(name)s:%(message)s'
 logging.basicConfig(filename="test.log", level="INFO",format=FORMAT)
@@ -36,10 +38,10 @@ def main():
     customers = ingest_parquet_df(customers_path)
 
     df = enrich_tickets_with_customer_details(tickets, customers)
-    df.show()
-    persist_parquet_df(df, processed_df_path)
+    #persist_parquet_df(df, processed_df_path)
 
     # 1. A table of Events with formatted dates and count of Orders
+    df.show(5)
 
     # 2. Tickets by Customer Title, ordered by Quantity
     tickets_by_customer_title_ordered_by_quantity(df).show()
@@ -50,8 +52,8 @@ def main():
     # 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
     
     # 5. Largest Order by Quantity for each Customer
-    largest_Order_by_quantity_for_each_customer(df).show(5)
-    
+    largest_order = largest_Order_by_quantity_for_each_customer(df)
+    persist_csv(largest_order, largest_oder_path)
 
 
 if __name__ == "__main__":

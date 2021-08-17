@@ -51,11 +51,6 @@ def parse_json_df(df):
     return df1
 
 
-def transform(df):
-    logging.info("transform the data")
-    pass
-
-
 def persist_parquet_df(df, path):
     """ 
     Save the data frame as parquet 
@@ -64,6 +59,21 @@ def persist_parquet_df(df, path):
 
     try:
         df.write.mode('overwrite').parquet(path)
+
+    except Exception as exp:
+        logging.error("An error ocurred while persisting data"+str(exp))
+
+    logging.info("Saving the data as parquet format completed")
+
+
+def persist_csv(df, path):
+    """ 
+    Save the data frame as parquet 
+    """
+    logging.info("Saving the data frame as parquet format started")
+
+    try:
+        df.coalesce(1).write.mode('overwrite').csv(path)
 
     except Exception as exp:
         logging.error("An error ocurred while persisting data"+str(exp))
@@ -107,20 +117,20 @@ def Event_table(df):
     """Aggregating orders by date
     """
     logging.info("Aggregating orders by date")
-    
+
     new_df = df.groupBy("Date").count().alias("Count of orders")
     return new_df
 
 
-def enrich_tickets_with_customer_details(df1, df2):
-    """Combine the tickets and customers dataframes
-    """
-    logging.info("Enrich tickets with customer details")
+# def enrich_tickets_with_customer_details(df1, df2):
+#     """Combine the tickets and customers dataframes
+#     """
+#     logging.info("Enrich tickets with customer details")
 
-    joinCondition = (df1.customer_id == df2.CustomerIdentity)
-    result = df1.join(F.broadcast(df2), joinCondition, 'inner')\
-                .drop("CustomerIdentity")
-    return result
+#     joinCondition = (df1.customer_id == df2.CustomerIdentity)
+#     result = df1.join(F.broadcast(df2), joinCondition, 'inner')\
+#                 .drop("CustomerIdentity")
+#     return result
 
 
 def tickets_by_customer_title_ordered_by_quantity(df):
@@ -143,8 +153,3 @@ def tickets_by_customer_title_ordered_by_quantity(df):
 #     return df.groupby("customer_id")\
 #              .agg(F.collect_list("event_name")\
 #              .alias("List_of_events"))
-
-
-
-
-
