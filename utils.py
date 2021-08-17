@@ -137,14 +137,14 @@ def tickets_by_customer_title_ordered_by_quantity(df):
              .sort("Totals", ascending=False)
 
 
-def list_events_for_each_customer(df):
-    """For each Customer, a list of Events
-    """
-    logging.info("listing events for each customer")
+# def list_events_for_each_customer(df):
+#     """For each Customer, a list of Events
+#     """
+#     logging.info("listing events for each customer")
     
-    return df.groupby("customer_id")\
-             .agg(F.collect_list("event_name")\
-             .alias("List_of_events"))
+#     return df.groupby("customer_id")\
+#              .agg(F.collect_list("event_name")\
+#              .alias("List_of_events"))
              
              
 def largest_Order_by_quantity_for_each_customer(df):

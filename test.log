@@ -43,3 +43,128 @@
 2021-08-15 19:30:20,109:root:Data ingestion started
 2021-08-15 19:30:20,351:root:Data ingestion complete
 2021-08-15 19:30:20,351:root:Enrich tickets with customer details
+2021-08-16 19:40:29,844:root:Data ingestion started
+2021-08-16 19:40:46,071:root:Data ingestion complete
+2021-08-16 19:40:46,072:root:Data ingestion started
+2021-08-16 19:40:46,323:root:Data ingestion complete
+2021-08-16 19:40:46,324:root:Enrich tickets with customer details
+2021-08-17 09:10:50,547:root:Starting the pipeline
+2021-08-17 09:11:02,542:root:Data ingestion started
+2021-08-17 09:11:11,299:root:Data ingestion complete
+2021-08-17 09:11:11,300:root:Date parsing commenced
+2021-08-17 09:11:11,909:root:Saving the data frame as parquet format started
+2021-08-17 09:11:15,815:root:Saving the data as parquet format completed
+2021-08-17 09:11:15,816:root:json data ingestion started
+2021-08-17 09:11:16,632:root:Data ingestion complete
+2021-08-17 09:11:16,632:root:transform the file
+2021-08-17 09:11:16,860:root:Saving the data frame as parquet format started
+2021-08-17 09:11:18,191:root:Saving the data as parquet format completed
+2021-08-17 09:11:18,191:root:Data ingestion started
+2021-08-17 09:11:18,567:root:Data ingestion complete
+2021-08-17 09:11:18,568:root:Data ingestion started
+2021-08-17 09:11:18,836:root:Data ingestion complete
+2021-08-17 09:11:18,836:root:Enrich tickets with customer details
+2021-08-17 09:11:20,764:root:Saving the data frame as parquet format started
+2021-08-17 09:11:21,603:root:Saving the data as parquet format completed
+2021-08-17 09:11:21,604:root:Grouping by customer title and order the data with descending quantity
+2021-08-17 09:11:26,807:root:listing events for each customer
+2021-08-17 09:31:26,818:root:Starting the pipeline
+2021-08-17 09:31:36,821:root:Data ingestion started
+2021-08-17 09:31:46,349:root:Data ingestion complete
+2021-08-17 09:31:46,350:root:Date parsing commenced
+2021-08-17 09:31:47,076:root:Saving the data frame as parquet format started
+2021-08-17 09:31:51,085:root:Saving the data as parquet format completed
+2021-08-17 09:31:51,086:root:json data ingestion started
+2021-08-17 09:31:51,712:root:Data ingestion complete
+2021-08-17 09:31:51,713:root:transform the file
+2021-08-17 09:31:51,906:root:Saving the data frame as parquet format started
+2021-08-17 09:31:53,069:root:Saving the data as parquet format completed
+2021-08-17 09:31:53,070:root:Data ingestion started
+2021-08-17 09:31:53,707:root:Data ingestion complete
+2021-08-17 09:31:53,708:root:Data ingestion started
+2021-08-17 09:31:53,993:root:Data ingestion complete
+2021-08-17 09:31:53,993:root:Enrich tickets with customer details
+2021-08-17 09:31:56,149:root:Saving the data frame as parquet format started
+2021-08-17 09:31:57,148:root:Saving the data as parquet format completed
+2021-08-17 09:31:57,148:root:Grouping by customer title and order the data with descending quantity
+2021-08-17 09:32:03,824:root:listing events for each customer
+2021-08-17 09:33:09,869:root:Starting the pipeline
+2021-08-17 09:33:21,438:root:Data ingestion started
+2021-08-17 09:33:30,923:root:Data ingestion complete
+2021-08-17 09:33:30,924:root:Date parsing commenced
+2021-08-17 09:33:31,598:root:Saving the data frame as parquet format started
+2021-08-17 09:33:35,554:root:Saving the data as parquet format completed
+2021-08-17 09:33:35,554:root:json data ingestion started
+2021-08-17 09:33:36,559:root:Data ingestion complete
+2021-08-17 09:33:36,559:root:transform the file
+2021-08-17 09:33:36,762:root:Saving the data frame as parquet format started
+2021-08-17 09:33:38,058:root:Saving the data as parquet format completed
+2021-08-17 09:33:38,058:root:Data ingestion started
+2021-08-17 09:33:38,588:root:Data ingestion complete
+2021-08-17 09:33:38,590:root:Data ingestion started
+2021-08-17 09:33:38,932:root:Data ingestion complete
+2021-08-17 09:33:38,932:root:Enrich tickets with customer details
+2021-08-17 09:33:41,314:root:Saving the data frame as parquet format started
+2021-08-17 09:33:42,610:root:Saving the data as parquet format completed
+2021-08-17 09:33:42,610:root:Grouping by customer title and order the data with descending quantity
+2021-08-17 09:33:48,856:root:listing events for each customer
+2021-08-17 09:35:00,364:root:Starting the pipeline
+2021-08-17 09:35:11,004:root:Data ingestion started
+2021-08-17 09:35:20,222:root:Data ingestion complete
+2021-08-17 09:35:20,223:root:Date parsing commenced
+2021-08-17 09:35:20,985:root:Saving the data frame as parquet format started
+2021-08-17 09:35:25,964:root:Saving the data as parquet format completed
+2021-08-17 09:35:25,964:root:json data ingestion started
+2021-08-17 09:35:26,731:root:Data ingestion complete
+2021-08-17 09:35:26,731:root:transform the file
+2021-08-17 09:35:27,014:root:Saving the data frame as parquet format started
+2021-08-17 09:35:28,171:root:Saving the data as parquet format completed
+2021-08-17 09:35:28,171:root:Data ingestion started
+2021-08-17 09:35:28,677:root:Data ingestion complete
+2021-08-17 09:35:28,677:root:Data ingestion started
+2021-08-17 09:35:29,012:root:Data ingestion complete
+2021-08-17 09:35:29,012:root:Enrich tickets with customer details
+2021-08-17 09:35:31,289:root:Saving the data frame as parquet format started
+2021-08-17 09:35:32,424:root:Saving the data as parquet format completed
+2021-08-17 09:35:32,424:root:Grouping by customer title and order the data with descending quantity
+2021-08-17 09:35:38,948:root:listing events for each customer
+2021-08-17 09:36:30,076:root:Starting the pipeline
+2021-08-17 09:36:41,118:root:Data ingestion started
+2021-08-17 09:36:50,683:root:Data ingestion complete
+2021-08-17 09:36:50,683:root:Date parsing commenced
+2021-08-17 09:36:51,471:root:Saving the data frame as parquet format started
+2021-08-17 09:36:55,293:root:Saving the data as parquet format completed
+2021-08-17 09:36:55,294:root:json data ingestion started
+2021-08-17 09:36:56,124:root:Data ingestion complete
+2021-08-17 09:36:56,124:root:transform the file
+2021-08-17 09:36:56,372:root:Saving the data frame as parquet format started
+2021-08-17 09:36:57,585:root:Saving the data as parquet format completed
+2021-08-17 09:36:57,585:root:Data ingestion started
+2021-08-17 09:36:58,041:root:Data ingestion complete
+2021-08-17 09:36:58,041:root:Data ingestion started
+2021-08-17 09:36:58,326:root:Data ingestion complete
+2021-08-17 09:36:58,326:root:Enrich tickets with customer details
+2021-08-17 09:37:00,425:root:Saving the data frame as parquet format started
+2021-08-17 09:37:01,342:root:Saving the data as parquet format completed
+2021-08-17 09:37:01,342:root:Grouping by customer title and order the data with descending quantity
+2021-08-17 09:37:08,233:root:listing events for each customer
+2021-08-17 09:38:46,115:root:Starting the pipeline
+2021-08-17 09:38:56,020:root:Data ingestion started
+2021-08-17 09:39:05,707:root:Data ingestion complete
+2021-08-17 09:39:05,707:root:Date parsing commenced
+2021-08-17 09:39:06,421:root:Saving the data frame as parquet format started
+2021-08-17 09:39:11,039:root:Saving the data as parquet format completed
+2021-08-17 09:39:11,039:root:json data ingestion started
+2021-08-17 09:39:11,922:root:Data ingestion complete
+2021-08-17 09:39:11,923:root:transform the file
+2021-08-17 09:39:12,161:root:Saving the data frame as parquet format started
+2021-08-17 09:39:13,350:root:Saving the data as parquet format completed
+2021-08-17 09:39:13,351:root:Data ingestion started
+2021-08-17 09:39:13,880:root:Data ingestion complete
+2021-08-17 09:39:13,881:root:Data ingestion started
+2021-08-17 09:39:14,168:root:Data ingestion complete
+2021-08-17 09:39:14,169:root:Enrich tickets with customer details
+2021-08-17 09:39:16,468:root:Saving the data frame as parquet format started
+2021-08-17 09:39:17,697:root:Saving the data as parquet format completed
+2021-08-17 09:39:17,698:root:Grouping by customer title and order the data with descending quantity
+2021-08-17 09:39:23,827:root:listing events for each customer

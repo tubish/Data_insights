@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from utils import *
+from insights import list_events_for_each_customer
 import logging
 
 
