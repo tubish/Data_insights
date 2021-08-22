@@ -8,8 +8,7 @@ import logging
 
 # 1. A table of Events with formatted dates and count of Orders
 
-
-def Event_table(df):
+def event_table(df):
     """Aggregating orders by date
     """
     logging.info("Aggregating orders by date")
@@ -54,7 +53,7 @@ def largest_Order_by_quantity_for_each_customer(df):
     """
     logging.info("Largest Order by Quantity for each Customer")
 
-    result = df.groupBy("customer_id").agg(F.max("quantity"))
+    result = df.groupBy("customer_id").agg((F.max("quantity")).alias("MaxQuant"))
     return result
 
 
@@ -80,7 +79,7 @@ def largestOrderByQuantityForEachCustomer(df):
 def secondLargestOrderByQuantityForEachCustomer(df):
     """Second largest Order by Quantity for each Customer
     """
-    logging.info("Largest Order by Quantity for each Customer")
+    logging.info("Second largest Order by Quantity for each Customer")
 
     cols = ["customer_id", "quantity"]
     windowSpec = Window.partitionBy(

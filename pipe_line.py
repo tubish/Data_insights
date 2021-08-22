@@ -8,7 +8,8 @@ import configparser
 
 
 FORMAT = '%(asctime)s:%(name)s:%(message)s'
-logging.basicConfig(filename="test.log", level="INFO", format=FORMAT)
+# logging.basicConfig(filename="test.log", level="INFO", format=FORMAT)
+logging.basicConfig(level="INFO", format=FORMAT)
 
 
 def main():
@@ -32,11 +33,15 @@ def main():
     tickets = ingest_parquet_df(tickets_path)
     customers = ingest_parquet_df(customers_path)
 
-    # 1. A table of Events with formatted dates and count of Orders
+    
     df = enrich_tickets_with_customer_details(tickets, customers)
-    df.show(5)
-    print(df.count())
-    persist_parquet_df(df, processed_df_path)
+    df.cache()
+    # df.show(5)
+    # print(df.count())
+    # persist_parquet_df(df, processed_df_path)
+    
+    # 1. A table of Events with formatted dates and count of Orders
+    event_table(df).show()
 
     # 2. Tickets by Customer Title, ordered by Quantity
     tickets_by_customer_title_ordered_by_quantity(df).show()
@@ -50,6 +55,9 @@ def main():
     largest_Order_by_quantity_for_each_customer(df).show(5)
     largestOrderByQuantityForEachCustomer(df).show(5)
     
+    # 6. Second Largest order by Quantity for each Customer
+    secondLargestOrderByQuantityForEachCustomer(df).show(5)
+    
     # 7. Gap/Delta in Quantity between each Customers Order
     
     # 8. A Spark SQL Table containing all provided data in a denormalized structure, ordered by Event date
@@ -61,6 +69,10 @@ def main():
     #11. Find the latest event purchased by customer, 
     # and depending on what season the event date falls in 
     # assign the status of 'Current Ticket Purchaser', 'Previous Ticket Purchaser' or 'Future Ticket Purchaser'.
+    
+    logging.info('application is finished')
+    spark.stop()
+    return None
 
 if __name__ == "__main__":
     main()
