@@ -50,7 +50,17 @@ def main():
     
     # 5. Largest Order by Quantity for each Customer
     
-
+    # 7. Gap/Delta in Quantity between each Customers Order
+    
+    # 8. A Spark SQL Table containing all provided data in a denormalized structure, ordered by Event date
+    
+    # 9. Create a Data Model, with a Transaction, Customer and Event table, providing a way to join the 3 tables
+    
+    #10. Net Sales by Season, with percentage comparison to the previous Season
+    
+    #11. Find the latest event purchased by customer, 
+    # and depending on what season the event date falls in 
+    # assign the status of 'Current Ticket Purchaser', 'Previous Ticket Purchaser' or 'Future Ticket Purchaser'.
 
 if __name__ == "__main__":
     main()
