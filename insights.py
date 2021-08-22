@@ -1,7 +1,36 @@
+"""Functions to process insights from the data
+"""
+
+
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 from pyspark.sql.window import Window
 import logging
+
+# 1. A table of Events with formatted dates and count of Orders
+
+
+def Event_table(df):
+    """Aggregating orders by date
+    """
+    logging.info("Aggregating orders by date")
+
+    new_df = df.groupBy("Date").count().alias("Count of orders")
+    return new_df
+
+
+# 2. Tickets by Customer Title, ordered by Quantity
+
+def tickets_by_customer_title_ordered_by_quantity(df):
+    """Tickets by Customer Title, ordered by Quantity
+    """
+    logging.info(
+        "Grouping by customer title and order the data with descending quantity")
+
+    result = df.groupBy("Customer_Title")\
+               .agg(F.sum("quantity").alias("Totals"))\
+               .sort("Totals", ascending=False)
+    return result
 
 
 # 3. For each Customer, a list of Events
@@ -12,10 +41,14 @@ def list_events_for_each_customer(df):
 
     result = df.groupby("customer_id")\
                .agg(F.collect_list("event_code")
-               .alias("List_of_events"))
+                    .alias("List_of_events"))
     return result
 
-# 5
+
+# 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
+
+
+# 5. Largest Order by Quantity for each Customer
 
 def largest_Order_by_quantity_for_each_customer(df):
     """Largest Order by Quantity for each Customer
@@ -25,20 +58,25 @@ def largest_Order_by_quantity_for_each_customer(df):
     result = df.groupBy("customer_id").agg(F.max("quantity"))
     return result
 
-def LargestOrderByQuantityForEachCustomer(df):
+
+# 5.1 Largest Order by Quantity for each Customer
+
+def largestOrderByQuantityForEachCustomer(df):
     """second method for
     """
 
     cols = ["customer_id", "quantity"]
-    windowSpec = Window.partitionBy(["customer_id"]).orderBy(F.desc("quantity"))
+    windowSpec = Window.partitionBy(
+        ["customer_id"]).orderBy(F.desc("quantity"))
 
     result = df.withColumn("rank", F.rank().over(windowSpec))\
                .filter("rank < 2")\
                .select(cols)
-               
+
     return result
 
 # 6  Second largest Order by Quantity for each Customer
+
 
 def secondLargestOrderByQuantityForEachCustomer(df):
     """Second largest Order by Quantity for each Customer
@@ -46,10 +84,11 @@ def secondLargestOrderByQuantityForEachCustomer(df):
     logging.info("Largest Order by Quantity for each Customer")
 
     cols = ["customer_id", "quantity"]
-    windowSpec = Window.partitionBy(["customer_id"]).orderBy(F.desc("quantity"))
+    windowSpec = Window.partitionBy(
+        ["customer_id"]).orderBy(F.desc("quantity"))
 
     result = df.withColumn("rank", F.rank().over(windowSpec))\
                .filter("rank == 2")\
                .select(cols)
-               
+
     return result

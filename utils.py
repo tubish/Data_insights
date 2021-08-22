@@ -70,25 +70,7 @@ def persist_csv(df, path):
     logging.info("Saving the data as parquet format completed")
 
 
-def Event_table(df):
-    """Aggregating orders by date
-    """
-    logging.info("Aggregating orders by date")
 
-    new_df = df.groupBy("Date").count().alias("Count of orders")
-    return new_df
-
-
-def tickets_by_customer_title_ordered_by_quantity(df):
-    """Tickets by Customer Title, ordered by Quantity
-    """
-    logging.info(
-        "Grouping by customer title and order the data with descending quantity")
-
-    result = df.groupBy("Customer_Title")\
-               .agg(F.sum("quantity").alias("Totals"))\
-               .sort("Totals", ascending=False)
-    return result
 
 
 # def list_events_for_each_customer(df):

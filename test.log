@@ -656,3 +656,14 @@ Caused by: java.io.IOException: Mkdirs failed to create file:/output/largest_ode
 2021-08-22 06:24:25,838:root:Largest Order by Quantity for each Customer
 2021-08-22 06:24:26,897:root:Saving the data frame as parquet format started
 2021-08-22 06:24:28,751:root:Saving the data as parquet format completed
+2021-08-22 08:05:46,545:root:Starting the pipeline
+2021-08-22 08:05:58,197:root:Data ingestion started
+2021-08-22 08:06:03,190:root:Data ingestion complete
+2021-08-22 08:06:03,190:root:Data ingestion started
+2021-08-22 08:06:03,383:root:Data ingestion complete
+2021-08-22 08:06:03,383:root:Enrich tickets with customer details
+2021-08-22 08:06:08,208:root:Saving the data frame as parquet format started
+2021-08-22 08:06:09,640:root:Saving the data as parquet format completed
+2021-08-22 08:06:09,640:root:Grouping by customer title and order the data with descending quantity
+2021-08-22 08:06:14,366:root:listing events for each customer
+2021-08-22 08:06:15,459:root:Largest Order by Quantity for each Customer
