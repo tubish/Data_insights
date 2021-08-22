@@ -577,3 +577,82 @@ Caused by: java.io.IOException: Mkdirs failed to create file:/output/largest_ode
 2021-08-17 14:21:15,052:root:Largest Order by Quantity for each Customer
 2021-08-17 14:21:15,155:root:Saving the data frame as parquet format started
 2021-08-17 14:21:17,507:root:Saving the data as parquet format completed
+2021-08-21 20:13:47,716:root:Starting the pipeline
+2021-08-21 20:13:58,001:root:Data ingestion started
+2021-08-21 20:14:04,001:root:Data ingestion complete
+2021-08-21 20:14:04,001:root:Data ingestion started
+2021-08-21 20:14:04,284:root:Data ingestion complete
+2021-08-21 20:14:04,284:root:Enrich tickets with customer details
+2021-08-21 20:14:08,854:root:Grouping by customer title and order the data with descending quantity
+2021-08-21 20:14:14,480:root:listing events for each customer
+2021-08-21 20:14:15,906:root:Largest Order by Quantity for each Customer
+2021-08-21 20:31:08,901:root:Starting the pipeline
+2021-08-21 20:31:19,629:root:Data ingestion started
+2021-08-21 20:31:24,987:root:Data ingestion complete
+2021-08-21 20:31:24,987:root:Data ingestion started
+2021-08-21 20:31:25,201:root:Data ingestion complete
+2021-08-21 20:31:25,201:root:Enrich tickets with customer details
+2021-08-21 20:31:28,686:root:Grouping by customer title and order the data with descending quantity
+2021-08-21 20:31:34,816:root:listing events for each customer
+2021-08-21 20:31:35,971:root:Largest Order by Quantity for each Customer
+2021-08-21 20:31:39,071:root:Saving the data frame as parquet format started
+2021-08-21 20:31:43,895:root:Saving the data as parquet format completed
+2021-08-21 20:33:45,669:root:Starting the pipeline
+2021-08-21 20:33:53,875:root:Data ingestion started
+2021-08-21 20:34:06,688:root:Data ingestion complete
+2021-08-21 20:34:06,689:root:Data ingestion started
+2021-08-21 20:34:06,905:root:Data ingestion complete
+2021-08-21 20:34:06,905:root:Enrich tickets with customer details
+2021-08-21 20:34:10,482:root:Grouping by customer title and order the data with descending quantity
+2021-08-21 20:34:14,535:root:listing events for each customer
+2021-08-21 20:34:16,571:root:Largest Order by Quantity for each Customer
+2021-08-21 20:34:17,417:root:Saving the data frame as parquet format started
+2021-08-21 20:34:23,967:root:Saving the data as parquet format completed
+2021-08-21 20:35:41,533:root:Starting the pipeline
+2021-08-21 20:35:49,744:root:Data ingestion started
+2021-08-21 20:35:54,748:root:Data ingestion complete
+2021-08-21 20:35:54,748:root:Data ingestion started
+2021-08-21 20:35:54,986:root:Data ingestion complete
+2021-08-21 20:35:54,986:root:Enrich tickets with customer details
+2021-08-21 20:36:02,677:root:Grouping by customer title and order the data with descending quantity
+2021-08-21 20:36:07,291:root:listing events for each customer
+2021-08-21 20:36:08,459:root:Largest Order by Quantity for each Customer
+2021-08-21 20:36:09,454:root:Saving the data frame as parquet format started
+2021-08-21 20:36:11,720:root:Saving the data as parquet format completed
+2021-08-21 20:40:50,911:root:Starting the pipeline
+2021-08-21 20:40:58,511:root:Data ingestion started
+2021-08-21 20:41:03,596:root:Data ingestion complete
+2021-08-21 20:41:03,596:root:Data ingestion started
+2021-08-21 20:41:03,812:root:Data ingestion complete
+2021-08-21 20:41:03,812:root:Enrich tickets with customer details
+2021-08-21 20:41:07,299:root:Grouping by customer title and order the data with descending quantity
+2021-08-21 20:41:12,920:root:listing events for each customer
+2021-08-21 20:41:14,037:root:Largest Order by Quantity for each Customer
+2021-08-21 20:41:15,058:root:Saving the data frame as parquet format started
+2021-08-21 20:41:17,215:root:Saving the data as parquet format completed
+2021-08-21 20:49:20,758:root:Starting the pipeline
+2021-08-21 20:49:28,830:root:Data ingestion started
+2021-08-21 20:49:33,710:root:Data ingestion complete
+2021-08-21 20:49:33,710:root:Data ingestion started
+2021-08-21 20:49:33,940:root:Data ingestion complete
+2021-08-21 20:49:33,940:root:Enrich tickets with customer details
+2021-08-21 20:49:38,336:root:Saving the data frame as parquet format started
+2021-08-21 20:49:39,801:root:Saving the data as parquet format completed
+2021-08-21 20:49:39,801:root:Grouping by customer title and order the data with descending quantity
+2021-08-21 20:49:44,534:root:listing events for each customer
+2021-08-21 20:49:45,687:root:Largest Order by Quantity for each Customer
+2021-08-21 20:49:46,617:root:Saving the data frame as parquet format started
+2021-08-21 20:49:48,622:root:Saving the data as parquet format completed
+2021-08-22 06:23:59,571:root:Starting the pipeline
+2021-08-22 06:24:08,590:root:Data ingestion started
+2021-08-22 06:24:13,796:root:Data ingestion complete
+2021-08-22 06:24:13,797:root:Data ingestion started
+2021-08-22 06:24:14,007:root:Data ingestion complete
+2021-08-22 06:24:14,007:root:Enrich tickets with customer details
+2021-08-22 06:24:18,515:root:Saving the data frame as parquet format started
+2021-08-22 06:24:19,954:root:Saving the data as parquet format completed
+2021-08-22 06:24:19,954:root:Grouping by customer title and order the data with descending quantity
+2021-08-22 06:24:24,740:root:listing events for each customer
+2021-08-22 06:24:25,838:root:Largest Order by Quantity for each Customer
+2021-08-22 06:24:26,897:root:Saving the data frame as parquet format started
+2021-08-22 06:24:28,751:root:Saving the data as parquet format completed

@@ -39,6 +39,19 @@ def parse_date(df):
 
     logging.info("Date parsing completed")
     
+def parse_json_df(df):
+    """Explode the 
+    """
+    logging.info("transform the file")
+
+    df1 = df.withColumn('phone', F.col('contact_details.phone')) \
+            .withColumn('postcode', F.col('contact_details.postcode')) \
+            .withColumn('Customer_Title', F.col('Customer Title')) \
+            .drop('contact_details')\
+            .drop('Customer Title')
+
+    return df1
+    
     
 def enrich_tickets_with_customer_details(df1, df2):
     """Combine the tickets and customers dataframes

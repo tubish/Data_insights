@@ -3,56 +3,51 @@ from utils import *
 from insights import *
 from transform_data import enrich_tickets_with_customer_details, parse_date
 import logging
+import configparser
 
 
-tickets_csv_path = "./data/tickets.csv"
-customers_json_path_path = "./data/customers.json"
-
-tickets_path = "./output/tickets.parquet"
-customers_path = "./output/customers.parquet"
-processed_df_path = "./output/processed_df.parquet"
-
-largest_oder_path = "./output/largest_oder.csv"
-
-FORMAT='%(asctime)s:%(name)s:%(message)s'
-logging.basicConfig(filename="test.log", level="INFO",format=FORMAT)
+FORMAT = '%(asctime)s:%(name)s:%(message)s'
+logging.basicConfig(filename="test.log", level="INFO", format=FORMAT)
 
 
 def main():
-    """[summary]
+    """run the pipeline
     """
-    
+
     logging.info("Starting the pipeline")
-    
+
     spark = SparkSession.builder.appName("engineer-test").getOrCreate()
 
-    tickets_df = ingest_csv_df(tickets_csv_path)
-    tickets = parse_date(tickets_df)
-    persist_parquet_df(tickets, tickets_path)
+    config = configparser.ConfigParser()
+    config.read(r'configs/conf.ini')
 
-    customers_df = ingest_json_df(customers_json_path_path)
-    customers = parse_json_df(customers_df)
-    persist_parquet_df(customers, customers_path)
+    tickets_csv_path = config.get('paths', 'tickets_csv_path')
+    customers_json_path_path = config.get('paths', 'customers_json_path_path')
+    tickets_path = config.get('paths', 'tickets_path')
+    customers_path = config.get('paths', 'customers_path')
+    processed_df_path = config.get('paths', 'processed_df_path')
+    largest_oder_path = config.get('paths', "largest_oder_path")
 
     tickets = ingest_parquet_df(tickets_path)
     customers = ingest_parquet_df(customers_path)
 
-    df = enrich_tickets_with_customer_details(tickets, customers)
-    #persist_parquet_df(df, processed_df_path)
-
     # 1. A table of Events with formatted dates and count of Orders
+    df = enrich_tickets_with_customer_details(tickets, customers)
     df.show(5)
+    print(df.count())
+    persist_parquet_df(df, processed_df_path)
 
     # 2. Tickets by Customer Title, ordered by Quantity
     tickets_by_customer_title_ordered_by_quantity(df).show()
-    
+
     # 3. For each Customer, a list of Events
     list_events_for_each_customer(df).show(5, truncate=False)
-    
+
     # 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
-    
+
     # 5. Largest Order by Quantity for each Customer
     largest_order = largest_Order_by_quantity_for_each_customer(df)
+    largest_order.show()
     persist_csv(largest_order, largest_oder_path)
 
 
