@@ -1,7 +1,6 @@
 """Functions to process insights from the data
 """
 
-
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 from pyspark.sql.window import Window
