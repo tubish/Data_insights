@@ -3,6 +3,8 @@
 
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
+from pyspark.sql.functions import udf
+from pyspark.sql.types import *
 from pyspark.sql.window import Window
 import logging
 
@@ -45,6 +47,25 @@ def list_events_for_each_customer(df):
 
 # 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
 
+def customersWithMoreThanOneEvents(df):
+    
+   Tots = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))
+   
+   return Tots.withColumn("MultiEvent", F.col("Totals") > 1)
+
+
+
+def customersWithMoreThanOneEvents1(df):
+    """using a udf 
+    """
+    
+    # multiEvent = lambda x: "True" if x>1 else ""
+    multiEvent = lambda x: 1 if x>1 else 0
+    multiEvent_udf = udf(multiEvent, StringType())
+    
+    Tots = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))
+   
+    return Tots.withColumn("MultiEvent", multiEvent_udf(F.col("Totals")))
 
 # 5. Largest Order by Quantity for each Customer
 

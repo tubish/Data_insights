@@ -3,6 +3,23 @@
 from pyspark.sql import SparkSession
 import logging
 
+def ingest_pg():
+    """read a parquet data file
+    """
+    logging.info("Data ingestion started")
+    spark = SparkSession.builder.getOrCreate()
+    df = spark.read\
+        .format("jdbc")\
+        .option("url", "jdbc:postgresql://localhost:5432/postgres")\
+        .option("dbtable", "events_schema.tickets")\
+        .option("user", "postgres")\
+        .option("password", "Postgres7273")\
+        .load()
+            
+            
+    logging.info("Data ingestion complete")
+    return df
+
 
 def ingest_parquet_df(fileName):
     """read a parquet data file
