@@ -10,6 +10,7 @@ import logging
 
 # 1. A table of Events with formatted dates and count of Orders
 
+
 def event_table(df):
     """Aggregating orders by date
     """
@@ -48,33 +49,34 @@ def list_events_for_each_customer(df):
 # 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
 
 def customersWithMoreThanOneEvents(df):
-    
-   Tots = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))
-   
-   return Tots.withColumn("MultiEvent", F.col("Totals") > 1)
 
+    Tots = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))
+
+    return Tots.withColumn("MultiEvent", F.col("Totals") > 1)
 
 
 def customersWithMoreThanOneEvents1(df):
     """using a udf 
     """
-    
+
     # multiEvent = lambda x: "True" if x>1 else ""
-    multiEvent = lambda x: 1 if x>1 else 0
+    def multiEvent(x): return 1 if x > 1 else 0
     multiEvent_udf = udf(multiEvent, StringType())
-    
+
     Tots = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))
-   
+
     return Tots.withColumn("MultiEvent", multiEvent_udf(F.col("Totals")))
 
 # 5. Largest Order by Quantity for each Customer
+
 
 def largest_Order_by_quantity_for_each_customer(df):
     """Largest Order by Quantity for each Customer
     """
     logging.info("Largest Order by Quantity for each Customer")
 
-    result = df.groupBy("customer_id").agg((F.max("quantity")).alias("MaxQuant"))
+    result = df.groupBy("customer_id").agg(
+        (F.max("quantity")).alias("MaxQuant"))
     return result
 
 
@@ -85,14 +87,14 @@ def largestOrderByQuantityForEachCustomer(df):
     """
 
     cols = ["customer_id", "quantity"]
-    windowSpec = Window.partitionBy(
-        ["customer_id"]).orderBy(F.desc("quantity"))
+    windowSpec = Window.partitionBy(["customer_id"])\
+                       .orderBy(F.desc("quantity"))
 
     result = df.withColumn("rank", F.rank().over(windowSpec))\
                .filter("rank < 2")\
                .select(cols)
 
-    return result
+    return result.dropDuplicates()
 
 # 6  Second largest Order by Quantity for each Customer
 
@@ -103,11 +105,11 @@ def secondLargestOrderByQuantityForEachCustomer(df):
     logging.info("Second largest Order by Quantity for each Customer")
 
     cols = ["customer_id", "quantity"]
-    windowSpec = Window.partitionBy(
-        ["customer_id"]).orderBy(F.desc("quantity"))
+    windowSpec = Window.partitionBy(["customer_id"])\
+                       .orderBy(F.desc("quantity"))
 
     result = df.withColumn("rank", F.rank().over(windowSpec))\
                .filter("rank == 2")\
                .select(cols)
 
-    return result
+    return result.dropDuplicates()
