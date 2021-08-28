@@ -1,4 +1,3 @@
 __pycache__/
 env
-./configs/logging.conf
-./configs/conf.ini
+configs
