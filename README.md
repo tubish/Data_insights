@@ -4,36 +4,16 @@ Data Engineer project. Within this repository, everything you'll need has been p
 
 ## Requirements
 
-The Repo provides a Dockerfile that contains everything needed to work with pyspark. However, if you're not comfortable with Docker, feel free to install the required tools on your machine.
-
-* Python
-* Java (For Spark)
-
 The required library dependancies are within the requirements.txt file
 
 ## Setup
 
-Run the /generate_data.py script to create your datasets within the `/data/` directory. e.g.
-
-    docker-compose run two_circles python3 generate_data.py
-
-Or without Docker:
-
-    python3 generate_data.py
-
-## Run your code
-
-If using Docker, the following can be used to run a command, from the root directory:
-
-    docker-compose run two_circles python3 -m python-assessment.ticket_processing_service.assessment
-
-Or without Docker: 
-
-    python3 -m python-assessment.ticket_processing_service.assessment
+Run python3 generate_data.py to generate data
 
 ## Scenarios
 
-You're a Data Engineer at Two Circles, and have been provided with two datasets, a tickets.csv and customer.json file. The person who has provided them to you would like the following things:
+You're a Data Engineer and have been provided with two datasets, a tickets.csv and customer.json file. 
+The following insights are required to be written into an `/output` folder :
 
 1. A table of Events with formatted dates and count of Orders
 2. Tickets by Customer Title, ordered by Quantity
@@ -47,6 +27,6 @@ You're a Data Engineer at Two Circles, and have been provided with two datasets,
 10. Net Sales by Season, with percentage comparison to the previous Season
 11. Find the latest event purchased by customer, and depending on what season the event date falls in assign the status of 'Current Ticket Purchaser', 'Previous Ticket Purchaser' or 'Future Ticket Purchaser'.
 
-For each of these insights, a csv file with the results written into an `/output` folder
+For each of these insights, a csv file with the results written 
 
 
