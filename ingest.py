@@ -5,7 +5,7 @@ import logging
 import configparser
 
 config = configparser.ConfigParser()
-config.read(r'configurations')
+config.read(r'configs')
 
 url = config.get('Database', 'url')
 password = config.get('Database', 'password')
