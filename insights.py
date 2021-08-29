@@ -10,7 +10,6 @@ import logging
 
 # 1. A table of Events with formatted dates and count of Orders
 
-
 def event_table(df):
     """Aggregating orders by date
     """
