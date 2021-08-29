@@ -13,7 +13,7 @@ if os.path.exists(filename):
 
 FORMAT = '%(asctime)s:%(name)s:%(message)s'
 #logging.basicConfig(filename="test.log", level="ERROR", format=FORMAT)
-logging.basicConfig(level="ERROR", format=FORMAT)
+logging.basicConfig(level="INFO", format=FORMAT)
 
 
 def main():
