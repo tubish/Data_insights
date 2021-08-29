@@ -2,6 +2,17 @@
 """
 from pyspark.sql import SparkSession
 import logging
+import configparser
+
+config = configparser.ConfigParser()
+config.read(r'configs/conf.ini')
+
+url = config.get('Database', 'url')
+password = config.get('Database', 'password')
+username = config.get('Database', 'username')
+url = config.get('Database', 'url')
+dbtable = config.get('Database', 'dbtable')
+
 
 def ingest_pg():
     """read a parquet data file
@@ -10,13 +21,12 @@ def ingest_pg():
     spark = SparkSession.builder.getOrCreate()
     df = spark.read\
         .format("jdbc")\
-        .option("url", "jdbc:postgresql://localhost:5432/postgres")\
-        .option("dbtable", "events_schema.tickets")\
-        .option("user", "postgres")\
-        .option("password", "Postgres7273")\
+        .option("url", url)\
+        .option("dbtable", dbtable)\
+        .option("user", username)\
+        .option("password", password)\
         .load()
-            
-            
+
     logging.info("Data ingestion complete")
     return df
 
