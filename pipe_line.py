@@ -23,7 +23,7 @@ def main():
     logging.info("Starting the pipeline")
     
     config = configparser.ConfigParser()
-    config.read(r'configs/conf.ini')
+    config.read(r'configurations')
     
     tickets_csv_path = config.get('paths', 'tickets_csv_path')
     tickets_csv_path = config.get('paths', 'tickets_csv_path')
