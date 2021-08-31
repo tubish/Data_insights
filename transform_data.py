@@ -18,7 +18,7 @@ def parse_date(df):
     spark = SparkSession.builder.getOrCreate()
     spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
     
-    import pyspark.sql.functions as F
+    #import pyspark.sql.functions as F
 
     format1 = "dd-MMM-yyyy"
     format2 = "MMM-dd-yyyy"

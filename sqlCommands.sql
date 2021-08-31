@@ -2,7 +2,7 @@
 
 CREATE schema events_schema
 
-CREATE TABLE IF NOT EXISTS events_schema.tickets 
+CREATE TABLE events_schema.tickets 
 (
      ticket_id integer NOT NULL, 
      order_id integer NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS events_schema.tickets
      CONSTRAINT tickets_pkey PRIMARY KEY (ticket_id)
 );
 
-INSERT INTO event_schema.tickets(
+INSERT INTO events_schema.tickets(
      ticket_id, 
      order_id, 
      customer_id, 
@@ -28,4 +28,4 @@ INSERT INTO event_schema.tickets(
      Date 
     
 )
-VALUES (12, 343, )
+VALUES ( 1, 182, 160, 1, 58.55, 'CHL-ARS', 'Chelsea vs Arsenal', '2020/2021', '2018-05-05');

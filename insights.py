@@ -3,26 +3,28 @@
 
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
-from pyspark.sql.functions import udf
+from pyspark.sql.functions import udf, lag
 from pyspark.sql.types import *
 from pyspark.sql.window import Window
 import logging
 
-# 1. A table of Events with formatted dates and count of Orders
+
 
 def event_table(df):
-    """Aggregating orders by date
+    """A table of Events with formatted dates and count of Orders
     """
     logging.info("Aggregating orders by date")
 
-    new_df = df.groupBy("Date").count().alias("Count of orders")
+    new_df = df.groupBy("Date")\
+               .count()\
+               .alias("Count of orders")
+    
     return new_df
 
 
-# 2. Tickets by Customer Title, ordered by Quantity
 
 def tickets_by_customer_title_ordered_by_quantity(df):
-    """Tickets by Customer Title, ordered by Quantity
+    """ Tickets by Customer Title, ordered by Quantity
     """
     logging.info(
         "Grouping by customer title and order the data with descending quantity")
@@ -30,28 +32,32 @@ def tickets_by_customer_title_ordered_by_quantity(df):
     result = df.groupBy("Customer_Title")\
                .agg(F.sum("quantity").alias("Totals"))\
                .sort("Totals", ascending=False)
+               
     return result
 
 
-# 3. For each Customer, a list of Events
 def list_events_for_each_customer(df):
     """For each Customer, a list of Events
     """
     logging.info("listing events for each customer")
 
     result = df.groupby("customer_id")\
-               .agg(F.collect_list("event_code")
-                    .alias("List_of_events"))
+               .agg(F.collect_list("event_code")\
+               .alias("List_of_events"))
+               
     return result
 
 
-# 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
 
 def customersWithMoreThanOneEvents(df):
+    """List of **all** Customers with an additional column called "MultiEvent", 
+    set to `True` for those Customers with more than 1 Event
+    """
 
-    Tots = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))
+    df1 = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))\
+             .withColumn("MultiEvent", F.col("Totals") > 1)
 
-    return Tots.withColumn("MultiEvent", F.col("Totals") > 1)
+    return df1
 
 
 def customersWithMoreThanOneEvents1(df):
@@ -66,7 +72,6 @@ def customersWithMoreThanOneEvents1(df):
 
     return Tots.withColumn("MultiEvent", multiEvent_udf(F.col("Totals")))
 
-# 5. Largest Order by Quantity for each Customer
 
 
 def largest_Order_by_quantity_for_each_customer(df):
@@ -79,10 +84,9 @@ def largest_Order_by_quantity_for_each_customer(df):
     return result
 
 
-# 5.1 Largest Order by Quantity for each Customer
 
 def largestOrderByQuantityForEachCustomer(df):
-    """second method for
+    """Largest Order by Quantity for each Customer
     """
 
     cols = ["customer_id", "quantity"]
@@ -95,7 +99,6 @@ def largestOrderByQuantityForEachCustomer(df):
 
     return result.dropDuplicates()
 
-# 6  Second largest Order by Quantity for each Customer
 
 
 def secondLargestOrderByQuantityForEachCustomer(df):
@@ -112,3 +115,20 @@ def secondLargestOrderByQuantityForEachCustomer(df):
                .select(cols)
 
     return result.dropDuplicates()
+
+
+
+def delta_in_quantity_between_each_customers_order(df):
+    """Gap/Delta in Quantity between each Customers Order
+    """
+    
+    # cols = ["Date", "customer_id", "ticket_id", "quantity"]
+    # df1 = df.select(cols)
+    windowSpec = Window.partitionBy(["customer_id"])\
+                        .orderBy("Date")
+                        
+    r = df.withColumn("lag",lag("quantity", 1).over(windowSpec)) \
+        .withColumn("delta", F.round(F.col("lag")-F.col("quantity")))\
+        .na.fill(value=0)
+           
+    return r
