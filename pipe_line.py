@@ -37,43 +37,43 @@ def main():
         .appName("engineer-test")\
         .getOrCreate()
 
-    # ingest and transform the raw tickets data and load the transformed data as parquet
+    logging.info("ingest the raw tickets data and format the date and load the transformed data as parquet")
     raw_tickets = ingest_csv_df(tickets_csv_path)
     date_parsed_df = parse_date(raw_tickets)
     persist_parquet_df(date_parsed_df, tickets_path)
 
-    # ingest and transform the raw customers data and load the transformed data as parquet
+    logging.info("ingest the raw customers data, transform and load the transformed data as parquet")
     raw_customers = ingest_json_df(customers_json_path)
     customers_parsed_df = parse_json_df(raw_customers)
     persist_parquet_df(customers_parsed_df, customers_path)
 
-    # ingest the transformed data and join the two data frames
+    logging.info("ingest the transformed data and join the two data frames")
     tickets = ingest_parquet_df(tickets_path)
     customers = ingest_parquet_df(customers_path)
     df = enrich_tickets_with_customer_details(tickets, customers)
     df.cache()
 
-    # 1. A table of Events with formatted dates and count of Orders
+    logging.info("1. A table of Events with formatted dates and count of Orders")
     event_table(df).show()
 
-    # 2. Tickets by Customer Title, ordered by Quantity
+    logging.info("2. Tickets by Customer Title, ordered by Quantity")
     tickets_by_customer_title_ordered_by_quantity(df).show()
 
-    # 3. For each Customer, a list of Events
+    logging.info("3. For each Customer, a list of Events")
     list_events_for_each_customer(df).show(5, truncate=False)
 
-    # 4. List of **all** Customers with an additional column called "MultiEvent", set to `True` for those Customers with more than 1 Event
+    logging.info("4. List of **all** Customers with an additional column called MultiEvent, set to `True` for those Customers with more than 1 Event")
     customersWithMoreThanOneEvents(df).show(10)
     customersWithMoreThanOneEvents1(df).show(10)
 
-    # 5. Largest Order by Quantity for each Customer
+    logging.info("5. Largest Order by Quantity for each Customer")
     largest_Order_by_quantity_for_each_customer(df).show(5)
     largestOrderByQuantityForEachCustomer(df).show(5)
 
-    # 6. Second Largest order by Quantity for each Customer
+    logging.info("6. Second Largest order by Quantity for each Customer")
     secondLargestOrderByQuantityForEachCustomer(df).show(5)
 
-    # 7. Gap/Delta in Quantity between each Customers Order
+    logging.info("7. Gap/Delta in Quantity between each Customers Order")
     delta_in_quantity_between_each_customers_order(df).show(5)
 
     # 8. A Spark SQL Table containing all provided data in a denormalized structure, ordered by Event date

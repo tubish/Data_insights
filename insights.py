@@ -13,7 +13,6 @@ import logging
 def event_table(df):
     """A table of Events with formatted dates and count of Orders
     """
-    logging.info("Aggregating orders by date")
 
     new_df = df.groupBy("Date")\
                .count()\
@@ -26,8 +25,6 @@ def event_table(df):
 def tickets_by_customer_title_ordered_by_quantity(df):
     """ Tickets by Customer Title, ordered by Quantity
     """
-    logging.info(
-        "Grouping by customer title and order the data with descending quantity")
 
     result = df.groupBy("Customer_Title")\
                .agg(F.sum("quantity").alias("Totals"))\
@@ -39,7 +36,6 @@ def tickets_by_customer_title_ordered_by_quantity(df):
 def list_events_for_each_customer(df):
     """For each Customer, a list of Events
     """
-    logging.info("listing events for each customer")
 
     result = df.groupby("customer_id")\
                .agg(F.collect_list("event_code")\
@@ -55,7 +51,7 @@ def customersWithMoreThanOneEvents(df):
     """
 
     df1 = df.groupBy("customer_id").agg(F.count("event_name").alias("Totals"))\
-             .withColumn("MultiEvent", F.col("Totals") > 1)
+            .withColumn("MultiEvent", F.col("Totals") > 1)
 
     return df1
 
@@ -77,10 +73,10 @@ def customersWithMoreThanOneEvents1(df):
 def largest_Order_by_quantity_for_each_customer(df):
     """Largest Order by Quantity for each Customer
     """
-    logging.info("Largest Order by Quantity for each Customer")
 
-    result = df.groupBy("customer_id").agg(
-        (F.max("quantity")).alias("MaxQuant"))
+    result = df.groupBy("customer_id")\
+               .agg((F.max("quantity"))\
+               .alias("MaxQuant"))
     return result
 
 
@@ -104,7 +100,6 @@ def largestOrderByQuantityForEachCustomer(df):
 def secondLargestOrderByQuantityForEachCustomer(df):
     """Second largest Order by Quantity for each Customer
     """
-    logging.info("Second largest Order by Quantity for each Customer")
 
     cols = ["customer_id", "quantity"]
     windowSpec = Window.partitionBy(["customer_id"])\
