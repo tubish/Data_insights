@@ -1,3 +1,4 @@
+from psycopg import ingest_pg_psy
 from pyspark.sql import SparkSession
 from ingest import *
 from insights import *
@@ -16,6 +17,14 @@ FORMAT = '%(asctime)s:%(name)s:%(message)s'
 logging.basicConfig(level="INFO", format=FORMAT)
 
 
+
+
+
+    
+
+       
+
+
 def main():
     """run the pipeline to transform the data and get the insights
     """
@@ -31,18 +40,26 @@ def main():
     tickets_path = config.get('paths', 'tickets_path')
     customers_path = config.get('paths', 'customers_path')
     processed_df_path = config.get('paths', 'processed_df_path')
-    jar_path = config.get('jars', 'jar_path')
+    jar_path = config.get('JARS', 'jar_path')
 
-    spark = SparkSession.builder\
-        .appName("engineer-test")\
-        .getOrCreate()
+    # spark = SparkSession.builder\
+    #                     .appName("engineer-test")\
+    #                     .config("spark.jars", "./postgresJDBC/postgresql-42.2.23.jar") \
+    #                     .getOrCreate()
+    
+    spark = run_spark()
+    # df = spark_jdbc_read(spark)
+    # df.show()
+ 
 
-    logging.info("ingest the raw tickets data and format the date and load the transformed data as parquet")
+    logging.info(
+        "ingest the raw tickets data and format the date and load the transformed data as parquet")
     raw_tickets = ingest_csv_df(tickets_csv_path)
     date_parsed_df = parse_date(raw_tickets)
     persist_parquet_df(date_parsed_df, tickets_path)
 
-    logging.info("ingest the raw customers data, transform and load the transformed data as parquet")
+    logging.info(
+        "ingest the raw customers data, transform and load the transformed data as parquet")
     raw_customers = ingest_json_df(customers_json_path)
     customers_parsed_df = parse_json_df(raw_customers)
     persist_parquet_df(customers_parsed_df, customers_path)
@@ -53,7 +70,8 @@ def main():
     df = enrich_tickets_with_customer_details(tickets, customers)
     df.cache()
 
-    logging.info("1. A table of Events with formatted dates and count of Orders")
+    logging.info(
+        "1. A table of Events with formatted dates and count of Orders")
     event_table(df).show()
 
     logging.info("2. Tickets by Customer Title, ordered by Quantity")
@@ -90,7 +108,6 @@ def main():
     # dff.show()
 
     logging.info('application is finished')
-    spark.stop()
     return None
 
 

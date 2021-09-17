@@ -1,11 +1,10 @@
+
 [paths]
 tickets_csv_path = ./data/tickets.csv
 customers_json_path_path = ./data/customers.json
-
 tickets_path = ./output/tickets.parquet
 customers_path = ./output/customers.parquet
 processed_df_path = ./output/processed_df.parquet
-
 largest_oder_path = ./output/largest_oder.csv
 
 [Dates]
@@ -13,12 +12,12 @@ start_date = 2015-01-15
 end_date = 2015-02-15
 
 [Database]
-Database=postgres
+Database=mydb
 Port=5432
-username=postgres
+username=wellington
 password = Postgres7273
-dbtable = events_schema.tickets
-url = jdbc:postgresql://localhost:5432/postgres
+dbtable = tourneys
+url = jdbc:postgresql://localhost:5432/mydb
 
-[jars]
+[JARS]
 jar_path = ./postgresJDBC/postgresql-42.2.23.jar

@@ -1,6 +1,6 @@
+# Data Definition Language(DDL)
 
-
-CREATE schema events_schema
+CREATE schema events_schema;
 
 CREATE TABLE events_schema.tickets 
 (
@@ -25,7 +25,13 @@ INSERT INTO events_schema.tickets(
      event_code, 
      event_name, 
      event_season, 
-     Date 
-    
-)
+     Date)
 VALUES ( 1, 182, 160, 1, 58.55, 'CHL-ARS', 'Chelsea vs Arsenal', '2020/2021', '2018-05-05');
+
+
+# Query to find specific configuration information
+-- select name, setting, unit, context, sourcefile, pending_restart
+-- from pg_settings
+-- where name ~ 'log.*connections';
+
+-- select distinct context from pg_settings;

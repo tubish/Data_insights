@@ -7,7 +7,6 @@ import logging
 def persist_parquet_df(df, path):
     """ Save the data frame as parquet 
     """
-
     try:
         df.write.mode('overwrite').parquet(path)
 
@@ -16,10 +15,9 @@ def persist_parquet_df(df, path):
 
 
 
-def persist_csv(df, path):
+def persist_csv_as_one_file(df, path):
     """ Save the data frame as csv 
     """
-
     try:
         df.coalesce(1).write.mode('overwrite').csv(path)
 
