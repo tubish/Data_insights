@@ -13,21 +13,26 @@ username = config.get('Database', 'username')
 dbtable = config.get('Database', 'dbtable')
 jar_path = config.get('JARS', 'jar_path')
 
-def run_spark():
-    spark = SparkSession\
-                .builder\
-                .config('spark.jars', './postgresJDBC/postgresql-42.2.23.jar') \
-                .getOrCreate()
+
+# def run_spark():
+#     spark = SparkSession\
+#                 .builder\
+#                 .config('spark.jars', './postgresJDBC/postgresql-42.2.23.jar') \
+#                 .getOrCreate()
         
-    return spark
+#     return spark
 
-spark = run_spark()
+# spark = run_spark()
+
+spark = SparkSession.builder\
+                        .appName("engineer-test")\
+                        .config("spark.driver.extraClassPath", "./postgresJDBC/postgresql-42.2.23.jar") \
+                        .getOrCreate()
 
 
-def spark_jdbc_read(spark):
+def spark_jdbc_read():
     jdbcDF = spark.read \
     .format("jdbc") \
-    .option("driver", "org.postgresql.Driver") \
     .option("url", "jdbc:postgresql://localhost:5432/mydb") \
     .option("dbtable", "tourneys") \
     .option("user", "wellington") \

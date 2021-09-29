@@ -1,6 +1,5 @@
 """
-Functions to generate sample data for Two Circles Assessments
-"""
+Functions to generate sample data """
 
 import csv
 import json

@@ -6,8 +6,6 @@ import pyspark.sql.functions as F
 from pyspark.sql.functions import udf, lag
 from pyspark.sql.types import *
 from pyspark.sql.window import Window
-import logging
-
 
 
 def event_table(df):
@@ -17,9 +15,8 @@ def event_table(df):
     new_df = df.groupBy("Date")\
                .count()\
                .alias("Count of orders")
-    
-    return new_df
 
+    return new_df
 
 
 def tickets_by_customer_title_ordered_by_quantity(df):
@@ -29,7 +26,7 @@ def tickets_by_customer_title_ordered_by_quantity(df):
     result = df.groupBy("Customer_Title")\
                .agg(F.sum("quantity").alias("Totals"))\
                .sort("Totals", ascending=False)
-               
+
     return result
 
 
@@ -38,11 +35,10 @@ def list_events_for_each_customer(df):
     """
 
     result = df.groupby("customer_id")\
-               .agg(F.collect_list("event_code")\
-               .alias("List_of_events"))
-               
-    return result
+               .agg(F.collect_list("event_code")
+                    .alias("List_of_events"))
 
+    return result
 
 
 def customersWithMoreThanOneEvents(df):
@@ -69,16 +65,14 @@ def customersWithMoreThanOneEvents1(df):
     return Tots.withColumn("MultiEvent", multiEvent_udf(F.col("Totals")))
 
 
-
 def largest_Order_by_quantity_for_each_customer(df):
     """Largest Order by Quantity for each Customer
     """
 
     result = df.groupBy("customer_id")\
-               .agg((F.max("quantity"))\
-               .alias("MaxQuant"))
+               .agg((F.max("quantity"))
+                    .alias("MaxQuant"))
     return result
-
 
 
 def largestOrderByQuantityForEachCustomer(df):
@@ -96,7 +90,6 @@ def largestOrderByQuantityForEachCustomer(df):
     return result.dropDuplicates()
 
 
-
 def secondLargestOrderByQuantityForEachCustomer(df):
     """Second largest Order by Quantity for each Customer
     """
@@ -112,18 +105,17 @@ def secondLargestOrderByQuantityForEachCustomer(df):
     return result.dropDuplicates()
 
 
-
 def delta_in_quantity_between_each_customers_order(df):
     """Gap/Delta in Quantity between each Customers Order
     """
-    
+
     # cols = ["Date", "customer_id", "ticket_id", "quantity"]
     # df1 = df.select(cols)
     windowSpec = Window.partitionBy(["customer_id"])\
-                        .orderBy("Date")
-                        
-    r = df.withColumn("lag",lag("quantity", 1).over(windowSpec)) \
+        .orderBy("Date")
+
+    r = df.withColumn("lag", lag("quantity", 1).over(windowSpec)) \
         .withColumn("delta", F.round(F.col("lag")-F.col("quantity")))\
         .na.fill(value=0)
-           
+
     return r

@@ -16,9 +16,9 @@ def ingest_pg_psy():
     logging.info("psycopg is ingesting from database")
     connection = psycopg2.connect(host='localhost', port=5432, password='Postgres7273', database='mydb')
     cursor = connection.cursor()
-    sql_query = """SELECT * from tourneys"""
+    sql_query = """SELECT * from tickets"""
     pdf = sqlio.read_sql_query(sql_query, connection)
     sparkDF = spark.createDataFrame(pdf)
     
     return sparkDF
-
+ingest_pg_psy().show()

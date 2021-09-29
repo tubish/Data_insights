@@ -6,6 +6,7 @@ from persist import *
 from transform_data import *
 import logging
 import configparser
+from jdbc_read import *
 import os
 
 filename = './test.log'
@@ -15,14 +16,6 @@ if os.path.exists(filename):
 FORMAT = '%(asctime)s:%(name)s:%(message)s'
 #logging.basicConfig(filename="test.log", level="ERROR", format=FORMAT)
 logging.basicConfig(level="INFO", format=FORMAT)
-
-
-
-
-
-    
-
-       
 
 
 def main():
@@ -42,16 +35,15 @@ def main():
     processed_df_path = config.get('paths', 'processed_df_path')
     jar_path = config.get('JARS', 'jar_path')
 
-    # spark = SparkSession.builder\
-    #                     .appName("engineer-test")\
-    #                     .config("spark.jars", "./postgresJDBC/postgresql-42.2.23.jar") \
-    #                     .getOrCreate()
-    
-    spark = run_spark()
-    # df = spark_jdbc_read(spark)
-    # df.show()
- 
+    spark = SparkSession.builder\
+                        .appName("engineer-test")\
+                        .config("spark.driver.extraClassPath", "./postgresJDBC/postgresql-42.2.23.jar") \
+                        .getOrCreate()
+    tickets = ingest_parquet_df(tickets_path)
+    tickets.show()
+    write_pg(tickets)
 
+    
     logging.info(
         "ingest the raw tickets data and format the date and load the transformed data as parquet")
     raw_tickets = ingest_csv_df(tickets_csv_path)
